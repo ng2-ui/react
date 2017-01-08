@@ -2,9 +2,9 @@ const webpack = require('webpack');
 
 const config = {
   resolve: {
-    extensions: ['', '.ts', '.webpack.js', '.web.js', '.js'],
+    extensions: ['', '.ts', '.tsx', '.webpack.js', '.web.js', '.js'],
     alias: {
-      'ng2-tab': '../src/index.ts'
+      'ng2-react': '../src/index.ts'
     }
   },
   devtool: 'source-map',
@@ -12,7 +12,8 @@ const config = {
   module: {
     loaders: [
       { test: /\.ts$/, loaders: ['ts', 'angular2-template-loader'] },
-      { test: /\.html$/, loader: 'raw' }
+      { test: /\.html$/, loader: 'raw' },
+      { test: /\.tsx?$/, loader: "ts-loader", exclude: /node_modules/ }
     ]
   },
   plugins: [],

@@ -1,6 +1,6 @@
 {
   "name": "ng2-react",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Angular2 React Component",
   "license": "MIT",
   "main": "dist/ng2-react.umd.js",
@@ -25,8 +25,7 @@
     "url": "https://github.com/ng2-ui/ng2-react/issues"
   },
   "homepage": "https://github.com/ng2-ui/ng2-react#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular/common": "^2.3.0",
     "@angular/compiler": "^2.3.0",
@@ -38,12 +37,16 @@
     "@angular/platform-browser-dynamic": "^2.3.0",
     "@angular/router": "^3.3.0",
     "@types/node": "^6.0.31",
+    "@types/react": "0.0.0",
     "angular2-template-loader": "^0.6.0",
     "codelyzer": "^2.0.0-beta.3",
     "core-js": "^2.4.1",
+    "jsx-loader": "^0.13.2",
     "npm-check-updates": "^2.8.8",
     "npm-run-all": "^3.1.2",
     "raw-loader": "^0.5.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "rimraf": "^2.5.4",
     "rxjs": "^5.0.0-rc.5",
     "strip-loader": "^0.1.2",

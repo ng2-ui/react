@@ -24,7 +24,7 @@
     "outDir": "dist",
     "baseUrl": "src",
     "paths": {
-      "ng2-tab": ["./index"]
+      "ng2-react": ["./index"]
     }
   },
   "files": [
