@@ -1,12 +1,18 @@
 # ng2-react
 Angular2 Directive For React Component
 
---------- THE BELOW IS NOT IMPLEMENTED YET -----------
-
 <a href="https://rawgit.com/ng2-ui/ng2-react/master/app/index.html">
-  Demo
+  <img src="http://i.imgur.com/9pEFDxb.png?2" width="50%">
 </a>
 
+## With ng2-react, we can do the following from Angular2;
+    
+   * pass read-only props to React component
+   * call a function in React component
+   * fire event in React componet
+   * set state of React componet
+   * or, more? Please log a [feature requirement](https://github.com/ng2-ui/ng2-react/issues)
+    
 ## Install
 
 1. install ng2-react
@@ -36,8 +42,36 @@ For full example, please check out `app` directory to see the example of;
 
 ## Use it in your code
 
-    <ng2-react></ng2-react>
-    <input ng2-react />
+```
+import { Component, ViewChild } from '@angular/core';
+import { Hello } from "./react-components/hello";  // This is a react component
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <fieldset>
+      <legend>This is React Component</legend>
+      <ng2-react 
+        #hello="ng2-react"
+        [reactComponent]="reactComponents.Hello"
+        [reactProps]="{name:'React props'}">
+      </ng2-react>
+    </fieldset>
+    
+    <!-- this.hello means the instance of Ng2ReactDirective -->
+    <fieldset>
+      <legend>This is Angular2 component</legend>
+      <button (click)="this.hello.reactInstance.tick()">
+        Update time by executing React instance function
+      </button>
+      <button (click)="this.hello.reactInstance.updateButton.click()">
+        Update time by triggering React element event
+      </button>
+      <button (click)="this.hello.setState({date: newDate})">
+        Update time by setting state of React instance
+      </button>
+    </fieldset>
+```
 
 ## **ng2-ui** welcomes new members and contributors
 
