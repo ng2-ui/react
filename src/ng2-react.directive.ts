@@ -3,7 +3,7 @@ import { Directive, ElementRef, Input } from '@angular/core';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { Ng2ReactWrapperComponent } from './ng2-react.wrapper.component';
+import { Ng2ReactAppComponent } from './ng2-react.app.component';
 
 @Directive({
   selector: 'ng2-react, [ng2-react]',
@@ -11,8 +11,8 @@ import { Ng2ReactWrapperComponent } from './ng2-react.wrapper.component';
 })
 export class Ng2ReactDirective {
   element: HTMLElement;
-  reactWrapperInstance: any;
-  reactInstance: any;
+  reactAppInstance: any;
+  reactComponentInstance: any;
 
   @Input('reactChildren')  reactChildren: any[] = [];
   @Input('reactComponent') reactComponent: any;
@@ -24,18 +24,21 @@ export class Ng2ReactDirective {
 
   ngOnInit() {
     if (this.reactComponent) {
-      let props = Object.assign({}, this.reactProps);
-      props['ref'] = el => {this.reactInstance = el};
-      let reactEl: any = React.createElement(this.reactComponent, props, this.reactChildren);
-
+      let comp: any  = this.reactComponent;
+      let props: any = this.reactProps;
       let reactWrapperEl = React.createElement(
-        Ng2ReactWrapperComponent, {reactEl: reactEl}, null
+        Ng2ReactAppComponent, {
+          comp: comp,
+          props: props,
+          state: {val: 'one'}
+        }
       );
-      this.reactWrapperInstance = ReactDOM.render(reactWrapperEl, this.element );
+      this.reactAppInstance = ReactDOM.render(reactWrapperEl, this.element);
+      this.reactComponentInstance = this.reactAppInstance.reactComponentInstance;
     }
   }
 
-  setState(props: any) {
-    this.reactWrapperInstance.setState(props);
+  setState(state: any) {
+    this.reactAppInstance.setState(state);
   }
 }

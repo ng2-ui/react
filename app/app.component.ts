@@ -26,9 +26,9 @@ import 'react-select/dist/react-select.css';
         [reactComponent]="Hello"
         [reactProps]="{name:'React props'}"></ng2-react>
       <hr/>
-      <button (click)="this.hello.reactInstance.tick()">Update time by executing React instance function</button>
-      <button (click)="this.hello.reactInstance.updateButton.click()">Update time by triggering React element event</button>
-      <button (click)="this.hello.reactInstance.setState({date: newDate})">Update time by setting state of React instance</button>
+      <button (click)="this.hello.reactComponentInstance.tick()">Update time by executing React instance function</button>
+      <button (click)="this.hello.reactComponentInstance.updateButton.click()">Update time by triggering React element event</button>
+      <button (click)="this.hello.reactComponentInstance.setState({date: newDate})">Update time by setting state of React instance</button>
     </fieldset>
     
     <fieldset>
@@ -86,13 +86,16 @@ export class AppComponent {
   selectedValue: any;
   handleChange = (val) => {
     this.selectedValue = val;
-    this.select.reactWrapperInstance.setState({val: val});
+    this.select.reactAppInstance.setState({val: val});
   };
   selectProps = {
     name: "my-select",
-    // value: "this.state.val", //how do I set this in delayed pattern
-    value: "this.select.reactWrapperInstance.state.val",
+    value: "APPSTATE:val",
     options: [ { value: 'one', label: 'One' }, { value: 'two', label: 'Two' } ],
     onChange: this.handleChange
   };
+
+  ngOnInit() {
+    console.log('xxxxxxxxxxx', ''+this.select.reactAppInstance);
+  }
 }
