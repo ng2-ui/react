@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 
 const config = {
   resolve: {
@@ -11,6 +12,7 @@ const config = {
   entry: './app/main.ts',
   module: {
     loaders: [
+      { test: /\.css$/, loader: 'style!css' },
       { test: /\.ts$/, loaders: ['ts', 'angular2-template-loader'] },
       { test: /\.html$/, loader: 'raw' },
       { test: /\.tsx?$/, loader: "ts-loader", exclude: /node_modules/ }
