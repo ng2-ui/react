@@ -15,6 +15,20 @@ Angular2 Directive For React Component
    * fire event in React componet
    * set state of React componet
    * or, more? Please log a [feature requirement](https://github.com/ng2-ui/ng2-react/issues)
+   
+## How Does It Work
+
+  1. Angular renders `ng2-react` directive with the following;
+    1. `reactComponent`, A React component to render. Let's call it as MyComp.
+    1. `reactProps`, props for MyComp.
+    1. `reactState`, the initial state to be used by MyComp
+  2. `ng2-react` directive create a React app component, that hosts MyComp
+    1. The react app component is accessible as `reactAppInstance`
+    1. The react app component is created with three props from step 1
+    1. The react app component renders MyComp using `reactProps` and `reactState`
+    1. The instance of MyComp is accessible as `reactCompnentInstance`
+  3. In summary, a React component is rendered within a React app, which is created by `ng2-react` directive
+
     
 ## Install
 
