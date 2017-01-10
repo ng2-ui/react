@@ -56,7 +56,7 @@ import { Hello } from "./react-components/hello";  // This is a react component
       <legend>This is React Component</legend>
       <ng2-react 
         #hello="ng2-react"
-        [reactComponent]="reactComponents.Hello"
+        [reactComponent]="Hello"
         [reactProps]="{name:'React props'}">
       </ng2-react>
     </fieldset>
