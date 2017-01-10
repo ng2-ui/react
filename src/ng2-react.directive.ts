@@ -16,6 +16,7 @@ export class Ng2ReactDirective {
 
   @Input('reactChildren')  reactChildren: any[] = [];
   @Input('reactComponent') reactComponent: any;
+  @Input('reactState')     reactState: any;
   @Input('reactProps')     reactProps: React.Attributes = {};
 
   constructor(elementRef: ElementRef) {
@@ -26,11 +27,12 @@ export class Ng2ReactDirective {
     if (this.reactComponent) {
       let comp: any  = this.reactComponent;
       let props: any = this.reactProps;
+      let state: any = this.reactState;
       let reactWrapperEl = React.createElement(
         Ng2ReactAppComponent, {
           comp: comp,
           props: props,
-          state: {val: 'one'}
+          state: state
         }
       );
       this.reactAppInstance = ReactDOM.render(reactWrapperEl, this.element);
