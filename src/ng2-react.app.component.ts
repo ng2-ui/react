@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 /**
- * many of React props are set with `this.state`, In that case Angular does not understand this
+ * Many of React props are set with `this.state`, In that case Angular does not understand this
  * but only an React app can. So, before we render React component, include the React component
  * into a React application, so that React can use state.
  * Without this wrapper app React `this.state` is simply not possible IMO
