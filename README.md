@@ -23,11 +23,11 @@ Angular2 Directive For React Component
     1. `reactProps`, props for MyComp.
     1. `reactState`, the initial state to be used by MyComp
   2. `ng2-react` directive create a React app component, that hosts MyComp
-    1. The react app component is accessible as `reactAppInstance`
-    1. The react app component is created with three props from step 1
-    1. The react app component renders MyComp using `reactProps` and `reactState`
-    1. The instance of MyComp is accessible as `reactCompnentInstance`
+    * The react app component is created with three props from step 1
+    * The react app component renders MyComp using `reactProps` and `reactState`
   3. In summary, a React component is rendered within a React app, which is created by `ng2-react` directive
+    * The react app component is accessible as `reactAppInstance`
+    * The instance of MyComp is accessible as `reactCompnentInstance`
 
     
 ## Install
