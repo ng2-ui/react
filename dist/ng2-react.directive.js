@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var React = require("react");
 var ReactDOM = require("react-dom");
+var ng2_react_app_component_1 = require("./ng2-react.app.component");
 var Ng2ReactDirective = (function () {
     function Ng2ReactDirective(elementRef) {
         this.reactChildren = [];
@@ -19,12 +20,19 @@ var Ng2ReactDirective = (function () {
     }
     Ng2ReactDirective.prototype.ngOnInit = function () {
         if (this.reactComponent) {
-            var reactEl = React.createElement(this.reactComponent, this.reactProps, this.reactChildren);
-            this.reactInstance = ReactDOM.render(reactEl, this.element);
+            var comp = this.reactComponent;
+            var props = this.reactProps;
+            var reactWrapperEl = React.createElement(ng2_react_app_component_1.Ng2ReactAppComponent, {
+                comp: comp,
+                props: props,
+                state: { val: 'one' }
+            });
+            this.reactAppInstance = ReactDOM.render(reactWrapperEl, this.element);
+            this.reactComponentInstance = this.reactAppInstance.reactComponentInstance;
         }
     };
-    Ng2ReactDirective.prototype.setState = function (props) {
-        this.reactInstance.setState(props);
+    Ng2ReactDirective.prototype.setState = function (state) {
+        this.reactAppInstance.setState(state);
     };
     return Ng2ReactDirective;
 }());

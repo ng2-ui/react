@@ -7,20 +7,19 @@ import 'react-day-picker/lib/style.css';
 import * as Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-@Component({
-  selector: 'my-app',
-  template: `
-    <h3>With ng2-react, we can do the following from Angular2; </h3>
-    <ul>
-      <li> pass read-only props to React component</li>
-      <li> call a function in React component </li>
-      <li> fire event in React componet</li>
-      <li> set state of React componet</li>
-      <li> or, more? Please ask at https://github.com/ng2-ui/ng2-react/issues</li>
-    </ul>
-    
-    <fieldset>
-      <legend>This is React Hello Component</legend>
+let templateStr: string = `
+  <h3>With ng2-react, we can do the following from Angular2; </h3>
+  <ul>
+    <li> pass read-only props to React component</li>
+    <li> call a function in React component </li>
+    <li> fire event in React componet</li>
+    <li> set state of React componet</li>
+    <li> or, more? Please ask at https://github.com/ng2-ui/ng2-react/issues</li>
+  </ul>
+  
+  <fieldset>
+    <legend><h2>This is React Hello Component</h2></legend>
+    <ng2-utils-1>
       <ng2-react 
         #hello="ng2-react"
         [reactComponent]="Hello"
@@ -29,10 +28,14 @@ import 'react-select/dist/react-select.css';
       <button (click)="this.hello.reactComponentInstance.tick()">Update time by executing React instance function</button>
       <button (click)="this.hello.reactComponentInstance.updateButton.click()">Update time by triggering React element event</button>
       <button (click)="this.hello.reactComponentInstance.setState({date: newDate})">Update time by setting state of React instance</button>
-    </fieldset>
-    
-    <fieldset>
-      <legend>This is React Day Picker Component</legend>
+    </ng2-utils-1>
+    <pre>{{templateStr | htmlCode:'ng2-utils-1'}}</pre>
+  </fieldset>
+  
+  <fieldset>
+    <legend><h2>This is React Day Picker Component</h2></legend>
+    https://github.com/gpbl/react-day-picker<br/>
+    <ng2-utils-2>
       <ng2-react style="display:inline-block"
         #dayPicker="ng2-react"
         [reactComponent]="DayPicker"
@@ -40,10 +43,16 @@ import 'react-select/dist/react-select.css';
       <br/>  
       <hr/>
       selected day: {{selectedDate}}        
-    </fieldset>
-    
-    <fieldset>
-      <legend>This is React Selector Component</legend>
+    </ng2-utils-2>
+    <pre>{{templateStr | htmlCode:'ng2-utils-2'}}</pre>
+    dayPickerProps:
+    <pre>{{dayPickerProps | json}}</pre>
+  </fieldset>
+  
+  <fieldset>
+    <legend><h2>This is React Selector Component</h2></legend>
+    https://github.com/JedWatson/react-select<br/>
+    <ng2-utils-3>
       <ng2-react style="display:block;width:200px"
         #select="ng2-react"
         [reactComponent]="Select"
@@ -51,10 +60,19 @@ import 'react-select/dist/react-select.css';
       <br/>  
       <hr/>
       selected value: {{selectedValue | json}}        
-    </fieldset>
-    `
+    </ng2-utils-3>
+    <pre>{{templateStr | htmlCode:'ng2-utils-3'}}</pre>
+    selectProps:
+    <pre>{{selectProps | json}}</pre>
+  </fieldset>`;
+
+@Component({
+  selector: 'my-app',
+  template: templateStr,
+  styles: [`fieldset{ margin: 20px; border-radius: 10px}`]
 })
 export class AppComponent {
+  templateStr = templateStr;
 
   /**
    * React Hello
@@ -94,8 +112,4 @@ export class AppComponent {
     options: [ { value: 'one', label: 'One' }, { value: 'two', label: 'Two' } ],
     onChange: this.handleChange
   };
-
-  ngOnInit() {
-    console.log('xxxxxxxxxxx', ''+this.select.reactAppInstance);
-  }
 }

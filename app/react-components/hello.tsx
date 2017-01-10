@@ -11,8 +11,8 @@ export class Hello extends React.Component<HelloProps, {}> {
   render() {
     return (
       <div>
-        <h1>Hello, {this.props.name}</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+        <h3>Hello, {this.props.name}</h3>
+        <h3>It is {this.state.date.toLocaleTimeString()}.</h3>
         <button
           ref={el => this.updateButton = el}
           onClick={this.tick}>Update time using onClick</button>

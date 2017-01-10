@@ -7,7 +7,7 @@
 		exports["ng2-react"] = factory(require("@angular/core"), require("@angular/forms"), require("@angular/common"));
 	else
 		root["ng2-react"] = factory(root["@angular/core"], root["@angular/forms"], root["@angular/common"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_181__, __WEBPACK_EXTERNAL_MODULE_182__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_182__, __WEBPACK_EXTERNAL_MODULE_183__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -57,7 +57,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	var ng2_react_directive_1 = __webpack_require__(1);
 	exports.Ng2ReactDirective = ng2_react_directive_1.Ng2ReactDirective;
-	var ng2_react_module_1 = __webpack_require__(180);
+	var ng2_react_module_1 = __webpack_require__(181);
 	exports.Ng2ReactModule = ng2_react_module_1.Ng2ReactModule;
 
 
@@ -78,6 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var core_1 = __webpack_require__(2);
 	var React = __webpack_require__(3);
 	var ReactDOM = __webpack_require__(34);
+	var ng2_react_app_component_1 = __webpack_require__(180);
 	var Ng2ReactDirective = (function () {
 	    function Ng2ReactDirective(elementRef) {
 	        this.reactChildren = [];
@@ -86,12 +87,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    Ng2ReactDirective.prototype.ngOnInit = function () {
 	        if (this.reactComponent) {
-	            var reactEl = React.createElement(this.reactComponent, this.reactProps, this.reactChildren);
-	            this.reactInstance = ReactDOM.render(reactEl, this.element);
+	            var comp = this.reactComponent;
+	            var props = this.reactProps;
+	            var reactWrapperEl = React.createElement(ng2_react_app_component_1.Ng2ReactAppComponent, {
+	                comp: comp,
+	                props: props,
+	                state: { val: 'one' }
+	            });
+	            this.reactAppInstance = ReactDOM.render(reactWrapperEl, this.element);
+	            this.reactComponentInstance = this.reactAppInstance.reactComponentInstance;
 	        }
 	    };
-	    Ng2ReactDirective.prototype.setState = function (props) {
-	        this.reactInstance.setState(props);
+	    Ng2ReactDirective.prototype.setState = function (state) {
+	        this.reactAppInstance.setState(state);
 	    };
 	    return Ng2ReactDirective;
 	}());
@@ -21555,6 +21563,63 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(3);
+	var Ng2ReactAppComponent = (function (_super) {
+	    __extends(Ng2ReactAppComponent, _super);
+	    function Ng2ReactAppComponent(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.state = {};
+	        _this.state = _this.props['state'];
+	        _this.reactComponent = _this.props['comp'];
+	        _this.reactComponentProps = _this.props['props'];
+	        _this.reactComponentProps.ref = function (ref) { _this.reactComponentInstance = ref; };
+	        return _this;
+	    }
+	    Ng2ReactAppComponent.prototype.render = function () {
+	        var comp = this.reactComponent;
+	        var props = this.getAppStateProps(this.reactComponentProps);
+	        return React.createElement(comp, props);
+	    };
+	    /**
+	     * I could not set `this.state.xxx` as a prop from Angular-side simply because there is no `this.state`
+	     * so, all `this.state.xxx` will be defined as  string `APPSTATE:xxx` from Angular-side
+	     * this APPSTATE:xxx string should be converted to `this.state.xxx` for proper React execution
+	     * However, you cannot simply assign this.state[xxx] because it will copy by value of this.state[xxx]
+	     * so, I needed to create a function to return this.state.xxx without copying a value but just an expression
+	     * then copy/pasted all other properties, then return the props
+	     */
+	    Ng2ReactAppComponent.prototype.getAppStateProps = function (props) {
+	        var ret = {};
+	        var allKeys = Object.keys(props);
+	        var appStateKeys = allKeys.filter(function (k) {
+	            return typeof props[k] === 'string' && props[k].startsWith('APPSTATE:');
+	        });
+	        var otherKeys = allKeys.filter(function (k) { return appStateKeys.indexOf(k) === -1; });
+	        // console.log('allKeys', allKeys, 'appStateKeys', appStateKeys, 'otherKeys', otherKeys);
+	        var appStateProps = {};
+	        appStateKeys.forEach(function (k) { return appStateProps[k] = props[k]; });
+	        var appStateJsonProps = JSON.stringify(appStateProps);
+	        var retVal = appStateJsonProps.replace(/\"APPSTATE:([^"]+)"/, function (m, $1) { return "this.state." + $1; });
+	        var fn = Function('return' + retVal).bind(this);
+	        ret = fn();
+	        otherKeys.forEach(function (k) { return ret[k] = props[k]; });
+	        return ret;
+	    };
+	    return Ng2ReactAppComponent;
+	}(React.Component));
+	exports.Ng2ReactAppComponent = Ng2ReactAppComponent;
+
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21565,8 +21630,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(2);
-	var forms_1 = __webpack_require__(181);
-	var common_1 = __webpack_require__(182);
+	var forms_1 = __webpack_require__(182);
+	var common_1 = __webpack_require__(183);
 	var ng2_react_directive_1 = __webpack_require__(1);
 	exports.Ng2ReactDirective = ng2_react_directive_1.Ng2ReactDirective;
 	var Ng2ReactModule = (function () {
@@ -21586,16 +21651,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 181 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_181__;
-
-/***/ },
 /* 182 */
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_182__;
+
+/***/ },
+/* 183 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_183__;
 
 /***/ }
 /******/ ])

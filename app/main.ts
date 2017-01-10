@@ -16,9 +16,10 @@ import { AppComponent }   from './app.component';
 
 //noinspection TypeScriptCheckImport
 import { Ng2ReactModule }  from 'ng2-react';
+import { Ng2UtilsModule } from "ng2-utils";
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, Ng2ReactModule],
+  imports: [BrowserModule, FormsModule, Ng2ReactModule, Ng2UtilsModule],
   declarations: [AppComponent],
   bootstrap: [ AppComponent ]
 })

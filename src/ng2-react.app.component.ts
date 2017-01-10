@@ -6,13 +6,22 @@ import * as React from 'react';
  * into a React application, so that React can use state.
  * Without this wrapper app React `this.state` is simply not possible IMO
  */
-export class Ng2ReactAppComponent extends React.Component {
-  state: any = {};
+export interface AppProps {
+  state: any;
+  comp: any;
+  props: any;
+}
+export interface AppState {
+  [key: string]: any
+}
+
+export class Ng2ReactAppComponent extends React.Component<AppProps, AppState> {
+  state: AppState = {};
   reactComponent: any;
   reactComponentProps: any;
   reactComponentInstance: any;
 
-  constructor(props) {
+  constructor(props: AppProps) {
     super(props);
     this.state = this.props['state'];
     this.reactComponent  = this.props['comp'];
@@ -22,7 +31,7 @@ export class Ng2ReactAppComponent extends React.Component {
 
   render() {
     let comp = this.reactComponent;
-    let props = this.getAppStateProps(this.reactComponentProps);
+    let props: any = this.getAppStateProps(this.reactComponentProps);
     return React.createElement(comp, props);
   }
 
@@ -42,7 +51,7 @@ export class Ng2ReactAppComponent extends React.Component {
       return typeof props[k] === 'string' && props[k].startsWith('APPSTATE:')
     });
     let otherKeys = allKeys.filter( k => appStateKeys.indexOf(k) === -1);
-    console.log('allKeys', allKeys, 'appStateKeys', appStateKeys, 'otherKeys', otherKeys);
+    // console.log('allKeys', allKeys, 'appStateKeys', appStateKeys, 'otherKeys', otherKeys);
 
     let appStateProps = {};
     appStateKeys.forEach(k => appStateProps[k] = props[k]);
