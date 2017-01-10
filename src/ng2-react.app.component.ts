@@ -1,13 +1,12 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
+/**
+ * many of React props are set with `this.state`, In that case Angular does not understand this
+ * but only an React app can. So, before we render React component, include the React component
+ * into a React application, so that React can use state.
+ * Without this wrapper app React `this.state` is simply not possible IMO
+ */
 export class Ng2ReactAppComponent extends React.Component {
-  //TODO: this need to be refactored
-  // to use state to
-  // 1. instantiae this instance with rendering a blank element
-  // 2. when state is changed to have reactComponent
-  //   2.1 change props to use state if REACT_APP_STATE is given
-  // 3. render reactComponent instead
   state: any = {};
   reactComponent: any;
   reactComponentProps: any;
@@ -23,9 +22,41 @@ export class Ng2ReactAppComponent extends React.Component {
 
   render() {
     let comp = this.reactComponent;
-    let props = this.reactComponentProps;
+    let props = this.getAppStateProps(this.reactComponentProps);
     return React.createElement(comp, props);
   }
 
+  /**
+   * I could not set `this.state.xxx` as a prop from Angular-side simply because there is no `this.state`
+   * so, all `this.state.xxx` will be defined as  string `APPSTATE:xxx` from Angular-side
+   * this APPSTATE:xxx string should be converted to `this.state.xxx` for proper React execution
+   * However, you cannot simply assign this.state[xxx] because it will copy by value of this.state[xxx]
+   * so, I needed to create a function to return this.state.xxx without copying a value but just an expression
+   * then copy/pasted all other properties, then return the props
+   */
+  getAppStateProps(props) {
+    let ret = {};
+
+    let allKeys = Object.keys(props);
+    let appStateKeys = allKeys.filter( k => {
+      return typeof props[k] === 'string' && props[k].startsWith('APPSTATE:')
+    });
+    let otherKeys = allKeys.filter( k => appStateKeys.indexOf(k) === -1);
+    console.log('allKeys', allKeys, 'appStateKeys', appStateKeys, 'otherKeys', otherKeys);
+
+    let appStateProps = {};
+    appStateKeys.forEach(k => appStateProps[k] = props[k]);
+    let appStateJsonProps = JSON.stringify(appStateProps);
+
+    let retVal = appStateJsonProps.replace(
+      /\"APPSTATE:([^"]+)"/,
+      function(m, $1) {return `this.state.${$1}`;}
+    );
+    let fn = Function('return' + retVal).bind(this);
+
+    ret = fn();
+    otherKeys.forEach(k => ret[k] = props[k]);
+    return ret;
+  }
 }
 
