@@ -3,12 +3,15 @@ import { Directive, ElementRef, Input } from '@angular/core';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import { Ng2ReactWrapperComponent } from './ng2-react.wrapper.component';
+
 @Directive({
   selector: 'ng2-react, [ng2-react]',
   exportAs: 'ng2-react'
 })
 export class Ng2ReactDirective {
   element: HTMLElement;
+  reactWrapperInstance: any;
   reactInstance: any;
 
   @Input('reactChildren')  reactChildren: any[] = [];
@@ -21,16 +24,18 @@ export class Ng2ReactDirective {
 
   ngOnInit() {
     if (this.reactComponent) {
-      let reactEl: any = React.createElement(
-        this.reactComponent,
-        this.reactProps,
-        this.reactChildren
+      let props = Object.assign({}, this.reactProps);
+      props['ref'] = el => {this.reactInstance = el};
+      let reactEl: any = React.createElement(this.reactComponent, props, this.reactChildren);
+
+      let reactWrapperEl = React.createElement(
+        Ng2ReactWrapperComponent, {reactEl: reactEl}, null
       );
-      this.reactInstance = ReactDOM.render(reactEl, this.element );
+      this.reactWrapperInstance = ReactDOM.render(reactWrapperEl, this.element );
     }
   }
 
   setState(props: any) {
-    this.reactInstance.setState(props);
+    this.reactWrapperInstance.setState(props);
   }
 }
