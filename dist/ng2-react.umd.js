@@ -89,10 +89,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (this.reactComponent) {
 	            var comp = this.reactComponent;
 	            var props = this.reactProps;
+	            var state = this.reactState;
 	            var reactWrapperEl = React.createElement(ng2_react_app_component_1.Ng2ReactAppComponent, {
 	                comp: comp,
 	                props: props,
-	                state: { val: 'one' }
+	                state: state
 	            });
 	            this.reactAppInstance = ReactDOM.render(reactWrapperEl, this.element);
 	            this.reactComponentInstance = this.reactAppInstance.reactComponentInstance;
@@ -111,6 +112,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    core_1.Input('reactComponent'),
 	    __metadata("design:type", Object)
 	], Ng2ReactDirective.prototype, "reactComponent", void 0);
+	__decorate([
+	    core_1.Input('reactState'),
+	    __metadata("design:type", Object)
+	], Ng2ReactDirective.prototype, "reactState", void 0);
 	__decorate([
 	    core_1.Input('reactProps'),
 	    __metadata("design:type", Object)

@@ -7,6 +7,7 @@ export declare class Ng2ReactDirective {
     reactComponentInstance: any;
     reactChildren: any[];
     reactComponent: any;
+    reactState: any;
     reactProps: React.Attributes;
     constructor(elementRef: ElementRef);
     ngOnInit(): void;
