@@ -29,6 +29,11 @@ Angular2 Directive For React Component
     * The react app component is accessible as `reactAppInstance`
     * The instance of MyComp is accessible as `reactCompnentInstance`
 
+### `this.state.xxx` in React props
+
+  Many of React props are set with `this.state`. Setting state in React props is totally safe within React apps because a React app has its state. However when we define React props in angular app, we cannot define it as `this.state.xxx` because Angular does not have `this.state`. If we define props as `this.state`, Angular does not understand this. Only React app can understand `this.state`. 
+  
+  Thus, when we define `this.state.xxx` in Angular to pass as React props, we need to define it as a string `APPSTATE:xxx`. Then, it will be converted `this.state.xxx` in a React app. With `ng2-app`,  all `this.state.xxx` must be defined as string `APPSTATE:xxx` from Angular-side, and all `APPSTATE:xxx` string will be converted to `this.state.xxx` for proper React execution.
     
 ## Install
 
