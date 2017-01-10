@@ -2,10 +2,10 @@
 Angular2 Directive For React Component
 
 <a href="https://rawgit.com/ng2-ui/ng2-react/master/app/index.html">
-    <img src="http://i.imgur.com/WBLIAQx.png" width="40%" />
+    <img src="http://i.imgur.com/WBLIAQx.png" width="40%"  valign="top"/>
     <img src="http://i.imgur.com/3XyDZ0Z.png" width="40%" valign="top" />
-    <img src="http://i.imgur.com/qp2ssAq.png" width="40%" />
-    <img src="http://i.imgur.com/AcYglNX.png" width="40%" />
+    <img src="http://i.imgur.com/qp2ssAq.png" width="40%"  valign="top"/>
+    <img src="http://i.imgur.com/AcYglNX.png" width="40%"  valign="top"/>
 </a>
 
 ## With ng2-react, we can do the following from Angular2;
