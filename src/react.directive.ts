@@ -3,18 +3,16 @@ import { Directive, ElementRef, Input } from '@angular/core';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { NguiReactAppComponent } from './react.app.component';
-
 @Directive({
   selector: 'ngui-react, [ngui-react]',
   exportAs: 'ngui-react'
 })
 export class NguiReactDirective {
   element: HTMLElement;
-  reactAppInstance: any;
-  reactComponentInstance: any;
+  // reactAppInstance: any;
+  // reactComponentInstance: any;
+  reactInstance: any;
 
-  @Input('reactChildren')  reactChildren: any[] = [];
   @Input('reactComponent') reactComponent: any;
   @Input('reactState')     reactState: any;
   @Input('reactProps')     reactProps: React.Attributes = {};
@@ -28,19 +26,16 @@ export class NguiReactDirective {
       let comp: any  = this.reactComponent;
       let props: any = this.reactProps;
       let state: any = this.reactState;
-      let reactWrapperEl = React.createElement(
-        NguiReactAppComponent, {
-          comp: comp,
-          props: props,
-          state: state
-        }
-      );
-      this.reactAppInstance = ReactDOM.render(reactWrapperEl, this.element);
-      this.reactComponentInstance = this.reactAppInstance.reactComponentInstance;
+      let children = null;
+
+      let reactEl = React.createElement(comp, props, children);
+      let callback = () => {};
+      this.reactInstance = ReactDOM.render(reactEl, this.element, callback);
+      state && this.reactInstance.setState(state);
     }
   }
 
   setState(state: any) {
-    this.reactAppInstance.setState(state);
+    //this.reactAppInstance.setState(state);
   }
 }

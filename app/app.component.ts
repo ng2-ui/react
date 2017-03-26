@@ -27,13 +27,13 @@ let templateStr: string = `
     <legend><h2>This is React Hello Component</h2></legend>
     <ngui-utils-1>
       <ngui-react 
-        #hello="ngui-react"
+        #reactHello="ngui-react"
         [reactComponent]="Hello"
         [reactProps]="{name:'React props'}"></ngui-react>
       <hr/>
-      <button (click)="this.hello.reactComponentInstance.tick()">Update time by executing React instance function</button>
-      <button (click)="this.hello.reactComponentInstance.updateButton.click()">Update time by triggering React element event</button>
-      <button (click)="this.hello.reactComponentInstance.setState({date: newDate})">Update time by setting state of React instance</button>
+      <button (click)="this.reactHello.reactInstance.tick()">Update time by executing React instance function</button>
+      <button (click)="this.reactHello.reactInstance.updateButton.click()">Update time by triggering React element event</button>
+      <button (click)="this.reactHello.reactInstance.setState({date: newDate})">Update time by setting state of React instance</button>
     </ngui-utils-1>
     <pre>{{templateStr | htmlCode:'ngui-utils-1'}}</pre>
   </fieldset>
@@ -43,7 +43,7 @@ let templateStr: string = `
     https://github.com/gpbl/react-day-picker<br/>
     <ngui-utils-2>
       <ngui-react style="display:inline-block"
-        #dayPicker="ngui-react"
+        #reactDayPicker="ngui-react"
         [reactComponent]="DayPicker"
         [reactProps]="dayPickerProps"></ngui-react>
       <br/>  
@@ -52,7 +52,7 @@ let templateStr: string = `
     </ngui-utils-2>
     <pre>{{templateStr | htmlCode:'ngui-utils-2'}}</pre>
     dayPickerProps:
-    <pre>{{dayPickerProps | json}}</pre>
+    <pre>{{dayPickerProps | jsCode}}</pre>
   </fieldset>
   
   <fieldset>
@@ -60,7 +60,7 @@ let templateStr: string = `
     https://github.com/JedWatson/react-select<br/>
     <ngui-utils-3>
       <ngui-react style="display:block;width:500px"
-        #select="ngui-react"
+        #reactSelect="ngui-react"
         [reactComponent]="Select"
         [reactProps]="selectProps"
         [reactState]="{val: ['one', 'two', 'three']}"></ngui-react>
@@ -70,7 +70,7 @@ let templateStr: string = `
     </ngui-utils-3>
     <pre>{{templateStr | htmlCode:'ngui-utils-3'}}</pre>
     selectProps:
-    <pre>{{selectProps | json}}</pre>
+    <pre>{{selectProps | jsCode}}</pre>
   </fieldset>
   
   <fieldset>
@@ -78,7 +78,7 @@ let templateStr: string = `
     http://casesandberg.github.io/react-color/<br/>
     <ngui-utils-4>
     <ngui-react style="display:block" [style.backgroundColor]="backgroundColor"
-      #color="ngui-react"
+      #reactColor="ngui-react"
       [reactComponent]="ChromePicker"
       [reactProps]="colorProps"></ngui-react>
       <hr/>
@@ -94,7 +94,7 @@ let templateStr: string = `
     http://kirjs.github.io/react-highcharts/<br/>
     <ngui-utils-5>
     <ngui-react
-      #highcharts="ngui-react"
+      #reactHighcharts="ngui-react"
       [reactComponent]="ReactHighcharts"
       [reactProps]="highchartsProps"></ngui-react>
     </ngui-utils-5>
@@ -116,7 +116,7 @@ export class AppComponent {
    * React Hello
    */
   Hello: Hello = Hello;
-  @ViewChild('hello') hello: any;
+  @ViewChild('reactHello') reactHello: any;
   newDate: Date = new Date(1969, 0, 1);
 
   /**
@@ -124,8 +124,9 @@ export class AppComponent {
    */
   DayPicker: DayPicker = DayPicker;
   selectedDate: Date = new Date();
-  @ViewChild('dayPicker') dayPicker: any;
+  @ViewChild('reactDayPicker') reactDayPicker: any;
   handleDayClick = (e, day) => {
+    console.log('selected a date', day, e);
     this.selectedDate = day;
   };
   dayPickerProps = {
@@ -138,41 +139,42 @@ export class AppComponent {
    * React Selector
    */
   Select: Select = Select;
-  @ViewChild('select') select;
+  @ViewChild('reactSelect') reactSelect;
   selectedValue: any;
-  handleChange = (val) => {
+  handleSelectChange = (val) => {
     this.selectedValue = val;
-    this.select.reactAppInstance.setState({val: val});
+    this.reactSelect.reactInstance.closeMenu();
   };
+  selectState = {val: ['one', 'two', 'three']};
   selectProps = {
     name: "my-select",
-    value: "APPSTATE:val",
+    value: this.selectState.val,
     multi: true,
     options: [
       {value: 'one', label: 'One'},   {value: 'two', label: 'Two'},   {value: 'three', label: 'Three'},
       {value: 'four', label: 'Four'}, {value: 'five', label: 'Five'}, {value: 'six', label: 'Six'}
     ],
-    onChange: this.handleChange
+    onChange: this.handleSelectChange
   };
 
   /**
    * React Color
    */
   ChromePicker: ChromePicker = ChromePicker;
-  @ViewChild('color') color;
+  @ViewChild('reactColor') reactColor;
   backgroundColor: string = '#fff';
-  handleChange = (color) => {
+  handleColorChange = (color) => {
     this.backgroundColor = `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`;
   };
   colorProps = {
-    onChange: this.handleChange
+    onChange: this.handleColorChange
   };
 
   /**
    * React Highcharts
    */
   ReactHighcharts: ReactHighcharts = ReactHighcharts;
-  @ViewChild('highcharts') highcharts;
+  @ViewChild('reactHighcharts') reactHighcharts;
   highchartsProps = {
     config: {
       xAxis: {
