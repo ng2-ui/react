@@ -3,18 +3,18 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    'ng2-react': path.join(__dirname, 'src', 'index.ts')
+    '@ngui/react': path.join(__dirname, 'src', 'index.ts')
   },
   resolve: {
-    extensions: ['', '.ts', '.js', '.json', '.css', '.html']
+    extensions: ['.ts', '.js', '.json', '.css', '.html']
   },
   resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
+    modules: [path.join(__dirname, 'node_modules')]
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: "[name].umd.js",
-    library: ["[name]"],
+    filename: "react.umd.js",
+    library: ["react"],
     libraryTarget: "umd"
   },
   externals: [
@@ -23,10 +23,10 @@ module.exports = {
   ],
   devtool: 'source-map',
   module: {
-    loaders: [
+    rules: [
       { // Support for .ts files.
         test: /\.ts$/,
-        loaders: ['ts', 'angular2-template-loader']
+        loaders: ['ts-loader', 'angular2-template-loader']
       }
     ]
   }

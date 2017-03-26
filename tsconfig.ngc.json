@@ -24,7 +24,7 @@
     "outDir": "dist",
     "baseUrl": "src",
     "paths": {
-      "ng2-react": ["./index"]
+      "@ngui/react": ["./index"]
     }
   },
   "files": [

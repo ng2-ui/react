@@ -15,11 +15,11 @@ import { FormsModule }    from "@angular/forms";
 import { AppComponent }   from './app.component';
 
 //noinspection TypeScriptCheckImport
-import { Ng2ReactModule }  from 'ng2-react';
-import { Ng2UtilsModule } from "ng2-utils";
+import { NguiReactModule }  from '@ngui/react';
+import { NguiUtilsModule } from "@ngui/utils";
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, Ng2ReactModule, Ng2UtilsModule],
+  imports: [BrowserModule, FormsModule, NguiReactModule, NguiUtilsModule],
   declarations: [AppComponent],
   bootstrap: [ AppComponent ]
 })
