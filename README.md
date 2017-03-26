@@ -1,6 +1,14 @@
 # @ngui/react
 Angular2 Directive For React Component
 
+## IMPORTANT NOTICE
+
+After 0.3.0 or higher, `ng2-react` has been changed to `@ngui/react`. Here are the changes;
+
+* Module `ng2-react` is changed to `@ngui/react`.
+* Direvtive `ng2-react` is changed to `ngui-react`.
+* Class name `Ng2React` is changed to `NguiReact`.
+
 <a href="https://rawgit.com/ng2-ui/react/master/app/index.html">
     <img src="http://i.imgur.com/WBLIAQx.png" width="40%"  valign="top"/>
     <img src="http://i.imgur.com/3XyDZ0Z.png" width="40%" valign="top" />
