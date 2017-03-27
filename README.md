@@ -18,11 +18,12 @@ After 0.3.0 or higher, `ng2-react` has been changed to `@ngui/react`. Here are t
 
 ## With @ngui/react, we can do the following from Angular2;
     
-   * pass read-only props to React component
-   * call a function in React component
-   * fire event in React componet
-   * set state of React componet
-   * or, more? Please log a [feature requirement](https://github.com/ng2-ui/react/issues)
+   * Pass read-only props to React component
+   * Call a function in React component
+   * Fire event in React componet
+   * Set state of React componet
+   
+   You need more?  Please log a [feature requirement](https://github.com/ng2-ui/react/issues)
    
 ## How Does It Work
 
