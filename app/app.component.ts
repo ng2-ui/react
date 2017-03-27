@@ -10,7 +10,12 @@ import { Component } from '@angular/core';
     cursor: pointer;
     padding: 0 5px;
     display: inline-block;
-  }`]
+  }
+  fieldset{ 
+    margin: 20px;
+    border-radius: 10px
+  }
+  `]
 })
 export class AppComponent {
   public center = 'Brampton, Canada';

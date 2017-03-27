@@ -53,11 +53,12 @@ export class NguiReactComponent {
     // create react component
     let comp: any  = this.reactComponent;
     let props: any = this.reactProps;
+    props.key = 'key'+Math.round(Math.random()*(10**15));
     this.reactElement = React.createElement(comp, props, children);
   }
 
   ngAfterViewInit() {
-    console.log('>>> Rendering', this);
+    //console.log('>>> Rendering', this);
     setTimeout( () => {
       if (!this.parentNguiReact) { //if this is top-most ngui-react, render it
         let callback = () => {};
