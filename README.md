@@ -26,23 +26,24 @@ After 0.3.0 or higher, `ng2-react` has been changed to `@ngui/react`. Here are t
    
 ## How Does It Work
 
-  1. Angular renders `ngui-react` directive with the following;
-    1. `reactComponent`, A React component to render. Let's call it as MyComp.
-    1. `reactProps`, props for MyComp.
-    1. `reactState`, the initial state to be used by MyComp
-  2. `ngui-react` directive creates a React app component, that hosts MyComp
-    * The react app component is created with three props from step 1
-    * The react app component renders MyComp using `reactProps` and `reactState`
-  3. In summary, a React component is rendered within a React app, which is created by `ngui-react` directive
-    * The react app component is accessible as `reactAppInstance`
-    * The instance of MyComp is accessible as `reactCompnentInstance`
+  1. Angular renders `ngui-react` component with the following attributes;
 
-### `this.state.xxx` in React props
+    * `reactComponent`, A React component to render. Let's call it as MyComp.
+    * `reactProps`, react props for the React component, MyComp.
+    * `reactState`, the initial state to be used by MyComp
 
-  Many of React props are set with `this.state`. Setting state in React props is totally safe within React apps because a React app has its state. However when we define React props in angular app, we cannot define it as `this.state.xxx` because Angular does not have `this.state`. If we define props as `this.state`, Angular does not understand this. Only React app can understand `this.state`. 
-  
-  Thus, when we define `this.state.xxx` in Angular to pass as React props, we need to define it as a string `APPSTATE:xxx`. Then, it will be converted `this.state.xxx` in a React app. With `ng2-app`,  all `this.state.xxx` must be defined as string `APPSTATE:xxx` from Angular-side, and all `APPSTATE:xxx` string will be converted to `this.state.xxx` for proper React execution.
-    
+  2. `ngui-react` create and render React component using; 
+
+    * `React.createElement()`
+    * `React.render()`
+
+## Access ReactJS properties
+  You can access react element and instance from Angular component.
+
+  * reactElement:  the react element from React.createElement()
+  * reactInstance: the react instance from React.render()
+
+
 ## Install
 
 1. install @ngui/react
@@ -70,37 +71,30 @@ For full example, please check out `app` directory to see the example of;
   - `app.module.ts`
   -  and `app.component.ts`.
 
-## Use it in your code
+## Example Usage
 
+#### hello.ts
+```
+class Hello extends React.Component {
+  render() {
+    return <div>Hello {this.props.name}</div>;
+  }
+}
+```
+#### my-app.ts
 ```
 import { Component, ViewChild } from '@angular/core';
-import { Hello } from "./react-components/hello";  // This is a react component
+import { Hello } from "./hello";  // This is a react component
 
 @Component({
   selector: 'my-app',
   template: `
-    <fieldset>
-      <legend>This is React Component</legend>
-      <ngui-react 
-        #hello="@ngui/react"
-        [reactComponent]="Hello"
-        [reactProps]="{name:'React props'}">
-      </ngui-react>
-    </fieldset>
-    
-    <!-- this.hello means the instance of NguiReactDirective -->
-    <fieldset>
-      <legend>This is Angular2 component</legend>
-      <button (click)="this.hello.reactInstance.tick()">
-        Update time by executing React instance function
-      </button>
-      <button (click)="this.hello.reactInstance.updateButton.click()">
-        Update time by triggering React element event
-      </button>
-      <button (click)="this.hello.setState({date: newDate})">
-        Update time by setting state of React instance
-      </button>
-    </fieldset>
+    <ngui-react 
+      [reactComponent]="Hello"
+      [reactProps]="{name:'angular2 react wrapper'}">
+    </ngui-react>
+  `;
+  ...
 ```
 
 ## **ng2-ui** welcomes new members and contributors

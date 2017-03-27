@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var react_directive_1 = require("./react.directive");
-exports.NguiReactDirective = react_directive_1.NguiReactDirective;
+var react_component_1 = require("./react.component");
+exports.NguiReactComponent = react_component_1.NguiReactComponent;
 var NguiReactModule = (function () {
     function NguiReactModule() {
     }
@@ -21,8 +21,8 @@ var NguiReactModule = (function () {
 NguiReactModule = __decorate([
     core_1.NgModule({
         imports: [common_1.CommonModule, forms_1.FormsModule],
-        declarations: [react_directive_1.NguiReactDirective],
-        exports: [react_directive_1.NguiReactDirective]
+        declarations: [react_component_1.NguiReactComponent],
+        exports: [react_component_1.NguiReactComponent]
     }),
     __metadata("design:paramtypes", [])
 ], NguiReactModule);

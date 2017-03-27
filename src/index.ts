@@ -1,4 +1,4 @@
-import { NguiReactDirective } from "./react.directive";
+import { NguiReactComponent } from "./react.component";
 import { NguiReactModule } from "./react.module";
 
-export { NguiReactDirective, NguiReactModule };
+export { NguiReactComponent, NguiReactModule };
