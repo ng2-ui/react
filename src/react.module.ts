@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { CommonModule  } from '@angular/common';
 
-import { NguiReactDirective } from "./react.directive";
+import { NguiReactComponent } from "./react.component";
 
-export { NguiReactDirective };
+export { NguiReactComponent };
 
 @NgModule({
   imports: [ CommonModule, FormsModule ],
-  declarations: [NguiReactDirective],
-  exports: [NguiReactDirective]
+  declarations: [NguiReactComponent],
+  exports: [NguiReactComponent]
 })
 export class NguiReactModule {}

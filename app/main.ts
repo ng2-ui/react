@@ -11,6 +11,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from "@angular/forms";
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { AppComponent }   from './app.component';
 
@@ -18,9 +19,20 @@ import { AppComponent }   from './app.component';
 import { NguiReactModule }  from '@ngui/react';
 import { NguiUtilsModule } from "@ngui/utils";
 
+import { APP_ROUTER_PROVIDERS, APP_ROUTER_COMPONENTS } from './app.route';
+
 @NgModule({
-  imports: [BrowserModule, FormsModule, NguiReactModule, NguiUtilsModule],
-  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    NguiReactModule,
+    NguiUtilsModule,
+    APP_ROUTER_PROVIDERS,
+  ],
+  declarations: [AppComponent, APP_ROUTER_COMPONENTS],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
