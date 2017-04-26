@@ -1,17 +1,9 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var React = require("react");
 var ReactDOM = require("react-dom");
-var NguiReactComponent = NguiReactComponent_1 = (function () {
+var NguiReactComponent = (function () {
     function NguiReactComponent(elementRef) {
         this.reactProps = {};
         this.element = elementRef.nativeElement;
@@ -52,30 +44,22 @@ var NguiReactComponent = NguiReactComponent_1 = (function () {
     };
     return NguiReactComponent;
 }());
-__decorate([
-    core_1.ContentChildren(NguiReactComponent_1),
-    __metadata("design:type", core_1.QueryList)
-], NguiReactComponent.prototype, "children", void 0);
-__decorate([
-    core_1.Input('reactComponent'),
-    __metadata("design:type", Object)
-], NguiReactComponent.prototype, "reactComponent", void 0);
-__decorate([
-    core_1.Input('reactState'),
-    __metadata("design:type", Object)
-], NguiReactComponent.prototype, "reactState", void 0);
-__decorate([
-    core_1.Input('reactProps'),
-    __metadata("design:type", Object)
-], NguiReactComponent.prototype, "reactProps", void 0);
-NguiReactComponent = NguiReactComponent_1 = __decorate([
-    core_1.Component({
-        selector: 'ngui-react',
-        exportAs: 'ngui-react',
-        template: '<ng-content></ng-content>'
-    }),
-    __metadata("design:paramtypes", [core_1.ElementRef])
-], NguiReactComponent);
+NguiReactComponent.decorators = [
+    { type: core_1.Component, args: [{
+                selector: 'ngui-react',
+                exportAs: 'ngui-react',
+                template: '<ng-content></ng-content>'
+            },] },
+];
+/** @nocollapse */
+NguiReactComponent.ctorParameters = function () { return [
+    { type: core_1.ElementRef, },
+]; };
+NguiReactComponent.propDecorators = {
+    'children': [{ type: core_1.ContentChildren, args: [NguiReactComponent,] },],
+    'reactComponent': [{ type: core_1.Input, args: ['reactComponent',] },],
+    'reactState': [{ type: core_1.Input, args: ['reactState',] },],
+    'reactProps': [{ type: core_1.Input, args: ['reactProps',] },],
+};
 exports.NguiReactComponent = NguiReactComponent;
-var NguiReactComponent_1;
 //# sourceMappingURL=react.component.js.map
