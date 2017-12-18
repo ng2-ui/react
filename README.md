@@ -1,8 +1,8 @@
 # @ngui/react
 Angular2 Directive For React Component
 
-## NOTE: NOT-MATAINED
-Accepting volunteers and ready to transfer full power to who wants to maintain this repo.
+## NOTE: NOT-MAINTAINED
+Accepting volunteers and ready to transfer ownership.
 
 
 
